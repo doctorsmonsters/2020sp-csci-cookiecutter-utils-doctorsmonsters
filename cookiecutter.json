@@ -5,6 +5,7 @@
     "project_name": "test project",
     "project_slug": "{{cookiecutter.project_name.lower().replace(' ', '_') }}",
     "repo_name": "2020sp-{{cookiecutter.project_name.lower().replace(' ','-')}}-doctorsmonsters",
+    "install_csci_utils": "yes",
     "project_short_description": "A short description of the project",
     "release_date": "{% now 'local' %}",
     "version": "0.1.0",

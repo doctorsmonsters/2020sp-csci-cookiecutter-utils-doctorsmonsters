@@ -1,4 +1,6 @@
+[![Build Status](https://travis-ci.com/doctorsmonsters/2020sp-csci-utils-doctorsmonsters.svg?branch=master)](https://travis-ci.com/doctorsmonsters/2020sp-csci-utils-doctorsmonsters)
 # Cookiecutter for CSCI Psets
+
 
 This component assignment is for your own cookiecutter fork.
 
