@@ -13,6 +13,9 @@ xlsxwriter = "*"
 pandas = "*"
 xlrd = "*"
 pyarrow = "*"
+{% if cookiecutter.install_csci_utils=="yes" %}
+csci-utils = {editable = true,git = "https://github.com/doctorsmonsters/2020sp-csci-utils-doctorsmonsters"}
+{% endif %}
 
 [requires]
 python_version = "3.7"

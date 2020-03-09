@@ -6,9 +6,6 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-{% if cookiecutter.install_csci_utils=="yes" %}
-csci-utils = {editable = true,git = "https://github.com/doctorsmonsters/2020sp-csci-utils-doctorsmonsters"}
-{% endif %}
 
 [requires]
 python_version = "3.7"
