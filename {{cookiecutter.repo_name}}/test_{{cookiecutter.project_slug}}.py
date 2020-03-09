@@ -11,7 +11,7 @@ import xlsxwriter
 from tempfile import TemporaryDirectory
 from unittest import TestCase
 
-from {{cookiecutter.project_slug}}.__main__ import excel_to_parquet
+from {{cookiecutter.project_slug}}.__main__ import excel_to_parquet  # noqa:E999, E501
 from {{cookiecutter.project_slug}}.__main__ import print_column_from_parquet
 from {{cookiecutter.project_slug}}.hash_str import hash_str, get_user_id
 from {{cookiecutter.project_slug}}.hash_str import get_csci_salt
