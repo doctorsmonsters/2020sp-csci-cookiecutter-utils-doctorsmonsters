@@ -14,7 +14,8 @@ def get_csci_salt() -> bytes:
     return bytes.fromhex(salt)
 
 
-def hash_str(some_val: Union[str, bytes], salt: Union[str, bytes] = "") -> bytes:
+def hash_str(some_val: Union[str, bytes],
+             salt: Union[str, bytes] = "") -> bytes:
     """Converts strings to hash digest
 
     See: https://en.wikipedia.org/wiki/Salt_(cryptography)

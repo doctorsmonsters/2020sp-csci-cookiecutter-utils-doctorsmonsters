@@ -11,9 +11,12 @@ import xlsxwriter
 from tempfile import TemporaryDirectory
 from unittest import TestCase
 
-from {{cookiecutter.project_slug}}.__main__ import excel_to_parquet, print_column_from_parquet
-from {{cookiecutter.project_slug}}.hash_str import hash_str, get_csci_salt, get_user_id
-from {{cookiecutter.project_slug}}.io import atomic_write, get_full_path, tempfile
+from {{cookiecutter.project_slug}}.__main__ import excel_to_parquet
+from {{cookiecutter.project_slug}}.__main__ import print_column_from_parquet
+from {{cookiecutter.project_slug}}.hash_str import hash_str, get_user_id
+from {{cookiecutter.project_slug}}.hash_str import get_csci_salt
+from {{cookiecutter.project_slug}}.io import atomic_write, tempfile
+from {{cookiecutter.project_slug}}.io import get_full_path
 
 
 class FakeFileFailure(IOError):
@@ -28,8 +31,8 @@ class MainTest(TestCase):
     def test_excel_to_parquet(self):
         '''
         To test that an excel file is sucessfully converted to a parquet file.
-        creates test.xlsx file, converts it to parquet file with the same name. and then
-        asserts true if the file exists.'''
+        creates test.xlsx file, converts it to parquet file with the same name
+        and then asserts true if the file exists.'''
 
         workbook = xlsxwriter.Workbook('test.xlsx')
         worksheet = workbook.add_worksheet()
@@ -43,16 +46,15 @@ class MainTest(TestCase):
         os.remove('test.xlsx')
 
 
-
-
 class HashTests(TestCase):
-
     def test_basic(self):
-        self.assertEqual(hash_str("world!", salt="hello, ").hex()[:6], "68e656")
+        self.assertEqual(hash_str("world!", salt="hello, ").hex()[:6],
+                         "68e656")
 
     def test_get_csci_salt(self):
-        '''Tests that salt in the environment variable can be read. Saves the original value first, sets
-        a test value and then checks the return of the function. Finally sets the environment
+        '''Tests that salt in the environment variable can be read.
+        Saves the original value first, sets a test value and then
+        checks the return of the function. Finally sets the environment
         variable back to the original value.'''
 
         salt = str(os.getenv('CSCI_SALT'))
@@ -61,7 +63,8 @@ class HashTests(TestCase):
         os.environ['CSCI_SALT'] = salt
 
     def test_get_user_id(self):
-        '''Tests that the get_user_id function returns the accurate hash for the provided id.'''
+        '''Tests that the get_user_id function returns
+        the accurate hash for the provided id.'''
 
         salt = str(os.getenv('CSCI_SALT'))
         os.environ['CSCI_SALT'] = 'de3736'
@@ -106,7 +109,7 @@ class AtomicWriteTests(TestCase):
     def test_file_exists(self):
         """Ensure an error is raised when a file exists"""
 
-        if os.path.exists('testfile') == False:
+        if not os.path.exists('testfile'):
             with atomic_write('testfile', 'w') as f:
                 f.write('this is a test')
         else:
@@ -116,26 +119,25 @@ class AtomicWriteTests(TestCase):
         os.remove('testfile')
 
     def test_get_full_path(self):
-        '''Build a full path with the given file name, and then check the get_full_path function
+        '''Build a full path with the given file name,
+        and then check the get_full_path function
         against it to make sure the same path is returned.'''
 
         testfile_path = os.path.abspath(os.curdir) + "\\testfile.parquet"
         self.assertEqual(testfile_path, get_full_path('testfile'))
 
     def test_tempfile(self):
-        '''Check temporary file is created in the context of the function, and then removed
-        once the context is exited.'''
+        '''Check temporary file is created in the context of the function,
+        and then removed once the context is exited.'''
         with tempfile() as temp_file:
             self.assertEqual(True, path.exists(temp_file))
 
         self.assertEqual(False, path.exists(temp_file))
 
     def test_as_file_false(self):
-        '''Test that if the as_file boolean is set to false, the return type is a string.'''
+        '''Test that if the as_file boolean is set to false,
+        the return type is a string.'''
 
         with atomic_write('test', 'w', False) as f:
             self.assertIsInstance(f, str)
         os.remove('test')
-
-
-

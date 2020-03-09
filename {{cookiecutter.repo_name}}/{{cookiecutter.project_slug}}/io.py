@@ -6,7 +6,8 @@ import tempfile as tmp
 
 @contextmanager
 def atomic_write(
-    file: Union[str, os.PathLike], mode: str = "w", as_file: bool = True, **kwargs
+    file: Union[str, os.PathLike],
+        mode: str = "w", as_file: bool = True, **kwargs
 ) -> ContextManager:
     """ Open temporary file object that atomically moves to destination upon
     exiting.
@@ -29,9 +30,9 @@ def atomic_write(
                     f.close()
             try:
                 os.rename(tmppath, file)
-            except:
+            except FileExistsError:
                 raise FileExistsError(
-                    "File with the same name exists already, please choose a different name."
+                    "File exists already, please choose a different name."
                 )
         else:
             try:
